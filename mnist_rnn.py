@@ -19,9 +19,9 @@ n_classes = 10
 def RNN(x, n_layers=1):
 	# x shape: (batch_size, n_steps, n_input)
 	# desired shape: list of n_steps with element shape (batch_size, n_input)
-	x = tf.transpose(x, [1, 0, 2])
-	x = tf.reshape(x, [-1, n_input])
-	x = tf.split(x, n_steps, 0)
+	x = tf.transpose(x, [1, 0, 2])   # [n_steps, batch_size, n_input]
+	x = tf.reshape(x, [-1, n_input])   # [n_steps * batch_size, n_input]
+	x = tf.split(x, n_steps, 0)   # n_steps * [batch_size, n_input]
 	if n_layers == 1:
 		lstm = rnn.BasicLSTMCell(n_hidden, forget_bias=1.0, state_is_tuple=True)
 		# from tensorflow.contrib.rnn.python.ops.core_rnn_cell_impl import DropoutWrapper
